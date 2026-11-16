@@ -1,0 +1,7 @@
+.git
+.venv
+dist
+build
+ansible
+k8s
+**/__pycache__
