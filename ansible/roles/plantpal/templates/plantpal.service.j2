@@ -1,0 +1,13 @@
+[Unit]
+Description=PlantPal API
+After=network.target
+
+[Service]
+User={{ app_user }}
+WorkingDirectory={{ app_dir }}
+Environment=APP_PORT={{ app_port }}
+ExecStart={{ app_dir }}/venv/bin/gunicorn -b 0.0.0.0:{{ app_port }} app:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

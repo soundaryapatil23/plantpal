@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plantpal
+  labels:
+    app: plantpal
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: plantpal
+  template:
+    metadata:
+      labels:
+        app: plantpal
+    spec:
+      containers:
+        - name: plantpal
+          image: plantpal:1.0.0
+          imagePullPolicy: IfNotPresent   # image is built locally into minikube/kind
+          ports:
+            - containerPort: 5000
+          # Enhancement: settings come from a ConfigMap instead of being hardcoded
+          envFrom:
+            - configMapRef:
+                name: plantpal-config
+          # Enhancement: liveness/readiness probes against /health
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 3
+            periodSeconds: 5

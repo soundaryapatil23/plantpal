@@ -1,0 +1,15 @@
+---
+- name: Configure server and deploy PlantPal API
+  hosts: appservers
+  become: true
+
+  # Variable: reusable settings for the role
+  vars:
+    app_port: 5000
+    app_user: plantpal
+    app_dir: /opt/plantpal
+    # Built artifact produced by build.sh / Jenkins (run ./build.sh dev first)
+    artifact_path: "{{ playbook_dir }}/../dist/plantpal-dev.tar.gz"
+
+  roles:
+    - plantpal
