@@ -1,0 +1,6 @@
+[appservers]
+# Default: configure the local machine (an Ubuntu/Debian VM or WSL with systemd).
+localhost ansible_connection=local
+
+# To target a separate VM instead, comment the line above and use e.g.:
+# app1 ansible_host=192.168.56.10 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_rsa
